@@ -15,13 +15,23 @@
 
 </head>
 <body>
-<h1> mail</h1>
-
-<p>Auth code: ${authCode}
-
-ID token: ${idToken}
-
-Access token: ${accessToken}</p>
+<h1> emails</h1>
+<div><span>You have&nbsp;:</span><span th:text="${nbUnreadEmails}"></span></div>
+<table class="table" >
+  <caption>INBOX</caption>	
+	  <tr>
+	    <th>From</th>
+	    <th>Subject</th>
+	    <th>Received</th>
+	    <th>Preview</th>
+	  </tr>
+	  <tr th:each="element : ${messages}">
+	    <td th:text="${element.from.emailAddress.name}">From</td>
+	    <td th:text="${element.subject}">Subject</td>
+	    <td th:text="${element.receivedDateTime}">Received</td>
+	    <td th:text="${element.bodyPreview}">Preview</td>
+	  </tr>
+</table>
 
 </body>
 

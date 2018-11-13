@@ -1,4 +1,4 @@
-package fr.ynov.dap.dap.data;
+package fr.ynov.dap.dap.data.google;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import fr.ynov.dap.dap.data.GoogleAccount;
 
 @Entity
 public class AppUser {

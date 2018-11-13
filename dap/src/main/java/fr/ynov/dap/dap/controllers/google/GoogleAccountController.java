@@ -24,8 +24,8 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.http.GenericUrl;
 
-import fr.ynov.dap.dap.data.AppUser;
-import fr.ynov.dap.dap.data.GoogleAccount;
+import fr.ynov.dap.dap.data.google.AppUser;
+import fr.ynov.dap.dap.data.google.GoogleAccount;
 import fr.ynov.dap.dap.data.interfaces.AppUserRepository;
 import fr.ynov.dap.dap.services.google.GoogleService;
 

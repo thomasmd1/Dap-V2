@@ -14,8 +14,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Label;
 
-import fr.ynov.dap.dap.data.AppUser;
-import fr.ynov.dap.dap.data.GoogleAccount;
+import fr.ynov.dap.dap.data.google.AppUser;
+import fr.ynov.dap.dap.data.google.GoogleAccount;
 import fr.ynov.dap.dap.data.interfaces.AppUserRepository;
 
 

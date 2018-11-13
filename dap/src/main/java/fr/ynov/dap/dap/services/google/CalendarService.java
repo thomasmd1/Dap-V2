@@ -19,8 +19,8 @@ import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
 import fr.ynov.dap.dap.CompareEvent;
-import fr.ynov.dap.dap.data.AppUser;
-import fr.ynov.dap.dap.data.GoogleAccount;
+import fr.ynov.dap.dap.data.google.AppUser;
+import fr.ynov.dap.dap.data.google.GoogleAccount;
 import fr.ynov.dap.dap.data.interfaces.AppUserRepository;
 
 /**
