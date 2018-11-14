@@ -20,12 +20,17 @@
 <table class="table" >
   <caption>INBOX</caption>	
 	  <tr>
+	 	<th><span class="glyphicon glyphicon-enveloppe"></span>Read/Unread</th>
 	    <th>From</th>
 	    <th>Subject</th>
 	    <th>Received</th>
 	    <th>Preview</th>
 	  </tr>
 	  <tr th:each="element : ${messages}">
+	  	<td>
+	  		<span th:if="${element.isRead == false}">UnRead</span>
+	  		<span th:unless="${element.isRead == false}">Read</span>
+	  	</td>
 	    <td th:text="${element.from.emailAddress.name}">From</td>
 	    <td th:text="${element.subject}">Subject</td>
 	    <td th:text="${element.receivedDateTime}">Received</td>
