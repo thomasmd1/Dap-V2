@@ -12,24 +12,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import fr.ynov.dap.dap.services.microsoft.MicrosoftService;
-import fr.ynov.dap.dap.data.microsoft.TokenResponse;
-import fr.ynov.dap.dap.data.microsoft.Message;
 import fr.ynov.dap.dap.data.interfaces.OutlookService;
-import fr.ynov.dap.dap.services.microsoft.OutlookServiceBuilder;
+import fr.ynov.dap.dap.data.microsoft.Event;
 import fr.ynov.dap.dap.data.microsoft.PagedResult;
+import fr.ynov.dap.dap.data.microsoft.TokenResponse;
+import fr.ynov.dap.dap.services.microsoft.MicrosoftService;
+import fr.ynov.dap.dap.services.microsoft.OutlookServiceBuilder;
+
+
 
 @Controller
-public class OutlookController {
+public class EventMicrosoftController {
 
-  @RequestMapping("/microsoftMail")
-  public String mail(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+  @RequestMapping("/microsoftEvents")
+  public String events(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
     HttpSession session = request.getSession();
     TokenResponse tokens = (TokenResponse)session.getAttribute("tokens");
     if (tokens == null) {
       // No tokens in session, user needs to sign in
       redirectAttributes.addFlashAttribute("error", "Please sign in to continue.");
-      return "Please sign in to continue.";
+      return "redirect:/index.html";
     }
 
     String tenantId = (String)session.getAttribute("userTenantId");
@@ -40,36 +42,23 @@ public class OutlookController {
 
     OutlookService outlookService = OutlookServiceBuilder.getOutlookService(tokens.getAccessToken(), email);
 
-    // Retrieve messages from the inbox
-    String folder = "inbox";
-    // Sort by time received in descending order
-    String sort = "receivedDateTime DESC";
-        // Only return the properties we care about
-        String properties = "receivedDateTime,from,isRead,subject,bodyPreview";
-    // Return at most 10 messages
+    // Sort by start time in descending order
+    String sort = "start/dateTime DESC";
+    // Only return the properties we care about
+    String properties = "organizer,subject,start,end";
+    // Return at most 10 events
     Integer maxResults = 10;
-    Integer nbUnreadEmails = 0;
 
     try {
-      PagedResult<Message> messages = outlookService.getMessages(
-          folder, sort, properties, maxResults)
+      PagedResult<Event> events = outlookService.getEvents(
+          sort, properties, maxResults)
           .execute().body();
-      model.addAttribute("messages", messages.getValue());
-      
-      Message[] messageList = messages.getValue();
-      
-      for(int i = 0; i < messageList.length; i++) {
-    	  if(!messageList[i].getIsRead()) {
-    		  nbUnreadEmails++;
-    	  }
-      }
-      model.addAttribute("nbUnreadEmails", nbUnreadEmails);
-      
+      model.addAttribute("events", events.getValue());
     } catch (IOException e) {
       redirectAttributes.addFlashAttribute("error", e.getMessage());
       Log.info("erreur" + e);
     }
 
-    return "mail";
+    return "event";
   }
 }

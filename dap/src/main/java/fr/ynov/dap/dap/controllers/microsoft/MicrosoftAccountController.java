@@ -18,12 +18,13 @@ import fr.ynov.dap.dap.data.interfaces.OutlookService;
 import fr.ynov.dap.dap.data.microsoft.IdToken;
 import fr.ynov.dap.dap.data.microsoft.OutlookUser;
 import fr.ynov.dap.dap.data.microsoft.TokenResponse;
+import fr.ynov.dap.dap.services.microsoft.MicrosoftAccountService;
 import fr.ynov.dap.dap.services.microsoft.MicrosoftService;
 import fr.ynov.dap.dap.services.microsoft.OutlookServiceBuilder;
 
 @Controller
 @RequestMapping("/microsoft")
-public class MicrosoftAccountController {
+public class MicrosoftAccountController extends MicrosoftAccountService {
 	
 	final static Logger LOG = LogManager.getLogger(MicrosoftAccountController.class);
 	
@@ -38,7 +39,7 @@ public class MicrosoftAccountController {
 	  session.setAttribute("expected_state", state);
 	  session.setAttribute("expected_nonce", nonce);
 
-	  String loginUrl = MicrosoftService.getLoginUrl(state, nonce);
+	  String loginUrl = MicrosoftAccountService.getLoginUrl(state, nonce);
 	  //model.addAttribute("loginUrl", loginUrl);
 	  // Name of a definition in WEB-INF/defs/pages.xml
 	  

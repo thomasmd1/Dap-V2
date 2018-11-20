@@ -1,5 +1,6 @@
 package fr.ynov.dap.dap.data.interfaces;
 
+import fr.ynov.dap.dap.data.microsoft.Event;
 import fr.ynov.dap.dap.data.microsoft.Message;
 import fr.ynov.dap.dap.data.microsoft.OutlookUser;
 import fr.ynov.dap.dap.data.microsoft.PagedResult;
@@ -19,5 +20,12 @@ public interface OutlookService {
     @Query("$orderby") String orderBy,
     @Query("$select") String select,
     @Query("$top") Integer maxResults
+  );
+  
+  @GET("/v1.0/me/events")
+  Call<PagedResult<Event>> getEvents(
+        @Query("$orderby") String orderBy,
+        @Query("$select") String select,
+        @Query("$top") Integer maxResults
   );
 }
